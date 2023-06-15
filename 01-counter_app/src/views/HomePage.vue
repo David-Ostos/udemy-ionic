@@ -6,12 +6,13 @@
       class="ion-margin-top ion-margin-botton" 
       v-on:click="up()" 
       expand="block"
+      :disabled="n===99"
       >
-      <i class="fa-solid fa-sort-up"></i>
+      <ion-icon :icon="caretUpOutline"></ion-icon>
       </ion-button>
     </ion-header>
 
-    <ion-content class="ion-text-center">
+    <ion-content class="ion-text-center scroll-null">
 
       <ion-text>{{ showNumber }}</ion-text>
 
@@ -22,8 +23,9 @@
       ion-margin-botton" 
       v-on:click="down()" 
       expand="block"
+      :disabled="n===0"
       >
-
+      <ion-icon :icon="caretDownOutline"></ion-icon>
     </ion-button>
     </ion-footer>
 
@@ -37,52 +39,38 @@ import {
     IonPage,
     IonText,
     IonButton,
-    IonFooter
+    IonFooter,
+    IonIcon
   } from '@ionic/vue';
-  
-  import { ref } from 'vue'
+
+  import { caretDownOutline, caretUpOutline } from 'ionicons/icons';
+
+  import { ref } from 'vue';
+  console.log(caretDownOutline)
 
   /* 
   console.log(ref(showN.number()).value) */
   
-  let n = ref<number>(0)
-  let showNumber = ref<string>("00")
+  let n = ref(0)
+  let showNumber = ref<string | number>("00")
   
   function up(){
-    console.log("up")
+    n.value++
+    if(n.value < 10)
+      showNumber.value = "0" + n.value
+    else
+      showNumber.value = "" + n.value
   }
   function down (){
-    console.log("down")
+    n.value--
+    if(n.value < 10)
+      showNumber.value = "0" + n.value
+    else
+      showNumber.value = "" + n.value
   }
-
   </script>
-
 <style scoped>
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
+ .scroll-null{
+  --overflow: hidden
+ }
 </style>
