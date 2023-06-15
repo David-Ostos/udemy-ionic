@@ -1,0 +1,7 @@
+{
+  "name": "Prueba-pluging",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
